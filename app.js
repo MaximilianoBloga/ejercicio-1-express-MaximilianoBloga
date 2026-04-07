@@ -7,7 +7,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // Ruta raíz
 app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+  res.send('<h1>Página Principal</h1><a href="/acerca">Acerca</a>');
+});
+
+// Ruta "Acerca"
+app.get('/acerca', (req, res) => {
+  res.send('<h1>Acerca</h1><a href="/contacto">Contacto</a>');
+});
+
+// Ruta "Contacto"
+app.get('/contacto', (req, res) => {
+  res.send('<h1>Contacto</h1><a href="/acerca">Acerca</a>');
 });
 
 // Middleware básico para manejo de errores
