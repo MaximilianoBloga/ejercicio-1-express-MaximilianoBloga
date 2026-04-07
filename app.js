@@ -1,14 +1,18 @@
 const express = require('express');
 const app = express();
 
+app.use(express.static('public')); // Servir archivos estáticos desde la carpeta 'public'
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Ruta raíz
-app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+app.get('/api/mensaje', (req, res) => {
+  res.json({ mensaje: 'Hola mundo!' });
 });
+
+
 
 // Middleware básico para manejo de errores
 app.use((err, req, res, next) => {

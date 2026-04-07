@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido</h1>
+        <p>Página inicial de desarrollo web</p>
+    </header>
+
+    <main>
+        <h2>Contenido Principal</h2>
+        <p>Este es un archivo HTML sencillo que utiliza CSS para dar estilo a la página.</p>
+        <p>El CSS esta en el archivo st.css</p>
+        <p id="mensaje-servidor"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mi Sitio Web. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        fetch('/api/mensaje')
+            .then(res => res.json())
+            .then(data => {
+             document.getElementById('mensaje-servidor').textContent = data.mensaje;
+            });
+    </script>
+
+</body>
+</html>
