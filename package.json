@@ -4,8 +4,8 @@
   "description": "Plantilla de proyecto Express.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node ejercicio1.js",
+    "dev": "node --watch ejercicio1.js"
   },
   "dependencies": {
     "express": "^5.2.1"
