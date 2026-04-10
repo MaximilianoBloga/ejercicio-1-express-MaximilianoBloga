@@ -1,23 +1,30 @@
 const express = require('express');
+//const path = require('path');
 const app = express();
 
-// Middleware
-app.use(express.json());
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public')); // Esto también sirve para servir archivos estáticos desde la carpeta 'public'
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Ruta raíz
-app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+app.post('/contacto', (req, res) => {
+    const nombre = req.body.nombre;
+    const mensaje = req.body.mensaje;
+
+    res.send(`
+        <h1>Datos recibidos</h1>
+        <p><strong>Nombre:</strong> ${nombre}</p>
+        <p><strong>Mensaje:</strong> ${mensaje}</p>
+        <a href="/">Volver</a>
+    `);
 });
 
-// Middleware básico para manejo de errores
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: '¡Algo salió mal!' });
+    console.error(err.stack);
+    res.status(500).json({ error: 'Algo salió mal' });
 });
 
-// Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
-}); 
+    console.log(`Servidor en puerto ${PORT}`);
+});
