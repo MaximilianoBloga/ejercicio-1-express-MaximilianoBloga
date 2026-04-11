@@ -1,23 +1,12 @@
 const express = require('express');
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public')); // sirve los archivos estáticos de la carpeta 'public'
+app.use(express.json()); // permite leer el body JSON del POST
 
-// Ruta raíz
-app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+app.post('/api/contacto', (req, res) => {
+  const { nombre, email, mensaje } = req.body;
+  res.json({ respuesta: `Gracias ${nombre}, recibimos tu mensaje. Te contactamos a ${email} pronto.` });
 });
 
-// Middleware básico para manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: '¡Algo salió mal!' });
-});
-
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
-}); 
+app.listen(3000, () => console.log('Servidor en http://localhost:3000'));
