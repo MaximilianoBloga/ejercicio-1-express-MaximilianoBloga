@@ -1,23 +1,21 @@
 const express = require('express');
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-// Ruta raíz
-app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+// Ruta de la API
+app.get('/api/productos', (req, res) => {
+  const productos = [
+    { id: 1, nombre: 'Laptop Pro', precio: 1299,
+      categoria: 'Electrónica', stock: 15 },
+    { id: 2, nombre: 'Teclado Mecánico', precio: 89,
+      categoria: 'Periféricos', stock: 42 },
+    { id: 3, nombre: 'Monitor 4K', precio: 549,
+      categoria: 'Pantallas', stock: 8 },
+    { id: 4, nombre: 'Mouse Inalámbrico', precio: 45,
+      categoria: 'Periféricos', stock: 67 },
+  ];
+  res.json(productos);
 });
 
-// Middleware básico para manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: '¡Algo salió mal!' });
-});
-
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
-}); 
+app.listen(3000);
