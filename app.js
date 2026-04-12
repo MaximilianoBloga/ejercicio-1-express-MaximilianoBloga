@@ -1,23 +1,22 @@
 const express = require('express');
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-// Ruta raíz
-app.get('/', (req, res) => {
-  res.send('Hola mundo!');
+const frases = [
+  "El código limpio se lee como prosa bien escrita.",
+  "Primero hazlo funcionar, luego hazlo bien.",
+  "Un programa que funciona es mejor que uno perfecto que no existe.",
+  "La simplicidad es la máxima sofisticación.",
+  "Cualquier tonto puede escribir código que una computadora entienda.",
+  "El mejor código es el que no necesitas escribir.",
+  "Depurar es dos veces más difícil que programar.",
+  "Las horas de programación ahorran minutos de planificación.",
+];
+
+app.get('/frase', (req, res) => {
+  const aleatoria = frases[Math.floor(Math.random() * frases.length)];
+  res.json({ frase: aleatoria });
 });
 
-// Middleware básico para manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: '¡Algo salió mal!' });
-});
-
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
-}); 
+app.listen(3000, () => console.log('Servidor en http://localhost:3000'));

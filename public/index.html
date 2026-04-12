@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Frase Aleatoria</title>
+</head>
+<body>
+  <h1>Generador de Frases</h1>
+
+  <button onclick="obtenerFrase()">Nueva frase</button>
+
+  <p id="frase">Presioná el botón para obtener una frase.</p>
+
+  <script>
+    async function obtenerFrase() {
+      const res = await fetch('/frase');
+      const data = await res.json();
+      document.getElementById('frase').textContent = data.frase;
+    }
+  </script>
+</body>
+</html>
